@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+    <script src="sor/jquery.min.js"></script>
+	<style>
+		
+	</style>
+	<title>Genarate Epoch, Epoch/Date Conversion</title>
+  </head>
+  <body>
+	<fieldset>
+	<legend>Time Util</legend>
+	<form name="dtoe">
+		<div id="current">
+			<p>Current Date & time -  <i id="currentTime"></i><p>
+			<p> 
+				Epoch Time - <i id='currentEpochTime'></i>
+				<button class="copyButton">Copy Epoch Time</button>
+			</p>
+		</div>
+		<table cellspacing="10px">
+			<tr>
+				<td><h4>Date</h4></td>
+				<td><input type="text" name="date" value="2018-03-26 00:00:00 PDT" /></td>
+				<td><input type="button" value="Convert to epoch" class="d2e" /></td>
+			</tr>
+			<tr>
+				<td><h4>Epoch</h4></td>
+				<td><input type="text" name="epoch" value="1522047600000" />
+				<td><input type="button" value="Convert to Date" class="e2d" />
+			</tr>
+			<tr>
+				<td><h4>Date</h4></td>
+				<td><input type="text" name="edate" value="2018-03-26 00:00:00 PDT" /></td>
+				<td>No. Of Epoch <input type="text" name="noOfEpoch" value="3" style="width: 30px;"/></td>
+				<td><input type="button" value="Generate epoch" class="genepoch" /></td>
+			</tr>
+		</table>
+	</form>
+	<div id="results">
+		
+	</div>
+	</fieldset>
+  </body> 
+  <script>
+	$(document).ready(function(){
+		$(".copyButton").click(function(e){
+			e.preventDefault();
+			var $temp = $("<input>");
+			$("body").append($temp);
+			var value = $("#currentEpochTime").text();
+			$temp.val(value).select();
+			document.execCommand("copy");
+			$temp.remove();
+			alert("Copied the text: " + value);
+		});
+		setInterval(function() {
+			var current = new Date;
+			$('#currentTime').html(current);
+			$('#currentEpochTime').html(current.getTime());
+		}, 1000);
+		
+		$(".e2d").click(function(){
+			try{
+				var value = $("input:text[name=epoch]").val();
+				var intValue = parseFloat(value);
+				if(value.length < 13)
+					intValue= intValue*1000;
+				console.log(intValue);
+				var date = new Date(intValue);
+				 var hours = date.getHours();
+				 var minutes = date.getMinutes();
+				 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Ap", "May", "June",
+									"July", "Aug", "Sep", "Oct", "Nov", "Dec"
+								];
+				 var ampm = hours >= 12 ? 'PM' : 'AM';
+				 hours = hours % 12;
+				 hours = hours ? hours : 12; // the hour '0' should be '12'
+				 minutes = minutes < 10 ? '0'+minutes : minutes;
+				 var strTime = hours + ':' + minutes + ' ' + ampm;
+				 
+				 $("#results").html("<h4>Date (Local time)<i> "+MONTH_NAMES[date.getMonth()] + "'" + date.getDate() + " " + date.getFullYear() + "  " + strTime+"</i></h4>");
+			}catch(err){
+				$("#results").html(err);
+			}
+		});	
+		
+		$(".d2e").click(function(){
+			try{
+				var value = $("input:text[name=date]").val();
+				var date = new Date(value);
+				$("#results").html("<h4>Epoch Time in (ms) "+date.getTime()+"</h4>");
+				$("#results").append("<h4>Epoch time "+date.getTime()/1000+"</h4>");
+			}catch(err){
+				$("#results").html(err);
+			}
+		});	
+		
+		$(".genepoch").click(function(){
+			try{
+				var value = $("input:text[name=edate]").val();
+				var noOfEpoch = $("input:text[name=noOfEpoch]").val();
+				var date = new Date(value);				
+				var result = "<h4>Epoch Times in (ms) </h4><table cellspacing=\"10px\"><tr><td>Epoch in (ms)</td><td>Epoch</td></tr>";
+				var no = parseInt(noOfEpoch);
+				for(var i=0;i < noOfEpoch;i++){
+					console.log(date.getTime());
+					result = result.concat("<tr><td>"+date.getTime()+"</td><td>"+date.getTime()/1000+"</td></tr>");
+					date.setDate(date.getDate()+1);
+				}
+				$("#results").html(result+"</table>");
+			}catch(err){
+				$("#results").html(err);
+			}
+		});	
+	});
+ </script>
+
+</html>
