@@ -1,12 +1,12 @@
-
 <html>
 	<head>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<title>Find House Number </title>
 	</head>
 	<body>
 		<h3>Find House Number </h3> 
 		<quote>
-			A certain street has houses in a row, numbered 1, 2, 3, 4, â€¦ consecutively. There is a certain house on the street such that the sum of all the house numbers to the left side of it is equal to the sum of all the house numbers to its right. Find the number of this house.?,
+			A certain street has houses in a row, numbered 1, 2, 3, 4, … consecutively. There is a certain house on the street such that the sum of all the house numbers to the left side of it is equal to the sum of all the house numbers to its right. Find the number of this house.?,
 		</quote>
 		<br />
 		<p>Below run against forumala 2h<sup>2</sup> = n(n+1) <br />
@@ -17,6 +17,57 @@
 		</div>
 		<button id="stop">Stop</button> &nbsp;&nbsp; <button id="start">Start</button> <br /> <br />
 		<div id="number">
+		</div>
+		<br />
+		Found new number Email us 📧- <a href="mailto:weinfinitech@gmail.com">weinfinitech@gmail.com</a
+		<br /><br />
+		<div>
+			<table border="1">
+				<thead>
+					<td> <b>Number of houses (n) </b></td>
+					<td><b>House Number (h)</b></td>
+				</thead>
+				<tr>
+					<td>8</td>
+					<td>6</td>
+				</tr>
+				<tr>
+					<td>49</td>
+					<td>35</td>
+				</tr>
+				<tr>
+					<td>288</td>
+					<td>204</td>
+				</tr>
+				<tr>
+					<td>1681</td>
+					<td>1189</td>
+				</tr>
+				<tr>
+					<td>9800</td>
+					<td>6930</td>
+				</tr>
+				<tr>
+					<td>57,121</td>
+					<td>40,391</td>
+				</tr>
+				<tr>
+					<td>332,928</td>
+					<td>235,416</td>
+				</tr>
+				<tr>
+					<td>1,940,449</td>
+					<td>1,372,105</td>
+				</tr>
+				<tr>
+					<td>...</td>
+					<td>...</td>
+				</tr>
+				<tr>
+					<td>11,309,768 </td>
+					<td>79,97,214</td>
+				</tr>
+			</table>
 		</div>
 	</body>
 	
@@ -43,10 +94,12 @@
 				if(number % 1 == 0){
 					$('#number').append("For Total house of n= "+ i +" house number is  h= " +number + " (<i>time taken "+(new Date().getTime()-t0)/1000+" secs </i>) <br />");
 				}
-				i++;
+				
 				if(max != null &&  max > 0 &&  i >= max){
 				    stop();
 				}
+				
+				i++;
 			}
 			
 			
