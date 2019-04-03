@@ -1,0 +1,82 @@
+
+<html>
+	<head>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<h3>Find House Number </h3> 
+		<quote>
+			A certain street has houses in a row, numbered 1, 2, 3, 4, â€¦ consecutively. There is a certain house on the street such that the sum of all the house numbers to the left side of it is equal to the sum of all the house numbers to its right. Find the number of this house.?,
+		</quote>
+		<br />
+		<p>Below run against forumala 2h<sup>2</sup> = n(n+1) <br />
+				<li>h -> house number</li>
+				<li>n -> number of houses</li>
+		</p>
+		<div id="status">
+		</div>
+		<button id="stop">Stop</button> &nbsp;&nbsp; <button id="start">Start</button> <br /> <br />
+		<div id="number">
+		</div>
+	</body>
+	
+	<script>
+		$(document).ready(function(){
+		
+			var intervals = [];
+			var no_of_thread = 1000;
+			var i = 2;
+			alert("Press ok to procced and enter min/max (optional)");
+			var min  = prompt("Min House");
+			if(min !=null && min > 0){
+			   i = min;
+			}
+			var max  = prompt("Max House");
+			for(j=0;j < no_of_thread;j++){
+				interval1 = setInterval(findNumber,1);
+				intervals.push(interval1);
+			}
+			var t0 = new Date().getTime();
+			function findNumber(){
+				var number = Math.sqrt( ( i*(i+1) ) / 2 );
+				$("#status").html("<h4>Finding for number " + i + " and result is "+number+"</h4>");
+				if(number % 1 == 0){
+					$('#number').append("For Total house of n= "+ i +" house number is  h= " +number + " (<i>time taken "+(new Date().getTime()-t0)/1000+" secs </i>) <br />");
+				}
+				i++;
+				if(max != null &&  max > 0 &&  i >= max){
+				    stop();
+				}
+			}
+			
+			
+			$("#stop").click(function(){
+				stop();
+			});
+			
+			
+			$("#start").click(function(){
+				max = null;
+				start();
+			});
+			
+			function start(){
+			  intervals = [];
+				for(j=0;j < no_of_thread;j++){
+					interval1 = setInterval(findNumber,1);
+					intervals.push(interval1);
+				}
+				return false;
+			}
+			function stop(){
+				for(j=0;j<no_of_thread;j++){
+					clearInterval(intervals[j]);
+				}
+				return false;
+			}
+
+
+		});
+		
+	</script>
+</html>
